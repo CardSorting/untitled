@@ -14,10 +14,10 @@
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Welcome Back, {{ Auth::user()->name }}!</h3>
                         <p class="text-gray-600">Create unique stickers or explore the gallery to see what others have made.</p>
                         <div class="mt-4 flex space-x-4">
-                            <a href="{{ route('stickers.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                            <a href="{{ route('stickers.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200">
                                 Create New Sticker
                             </a>
-                            <a href="{{ route('stickers.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50">
+                            <a href="{{ route('stickers.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200">
                                 Browse Gallery
                             </a>
                         </div>
@@ -54,16 +54,21 @@
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Your Recent Stickers</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         @forelse(Auth::user()->stickers()->latest()->take(4)->get() as $sticker)
-                            <a href="{{ route('stickers.show', $sticker) }}" class="block group">
+                            <a href="{{ route('stickers.show', $sticker) }}" class="block group focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg transition-shadow duration-200">
                                 <div class="aspect-square rounded-lg overflow-hidden bg-gray-100">
-                                    <img src="{{ asset('storage/' . $sticker->image_path) }}" alt="{{ $sticker->subject }}" class="w-full h-full object-cover group-hover:opacity-75">
+                                    <img src="{{ asset('storage/' . $sticker->image_path) }}" alt="{{ $sticker->subject }}" class="w-full h-full object-cover group-hover:opacity-75 transition-opacity duration-200">
                                 </div>
                                 <p class="mt-2 text-sm text-gray-500">{{ $sticker->subject }}</p>
                             </a>
                         @empty
-                            <div class="col-span-4 text-center py-8 text-gray-500">
-                                No stickers created yet. <a href="{{ route('stickers.create') }}" class="text-blue-500 hover:underline">Create your first one!</a>
-                            </div>
+                            <x-empty-state
+                                title="No stickers created yet"
+                                description="Start creating your first sticker to see it here"
+                                icon="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758L5 19m7-7l2.879-2.879M12 12l2.879 2.879M12 12l-2.879 2.879M12 12l-2.879-2.879M12 12l2.879-2.879"
+                                action="{{ route('stickers.create') }}"
+                                actionText="Create First Sticker"
+                                class="col-span-4"
+                            />
                         @endforelse
                     </div>
                 </div>

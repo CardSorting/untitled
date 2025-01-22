@@ -1,0 +1,29 @@
+@layer components {
+    .empty-state {
+        @apply text-center py-8;
+    }
+
+    .empty-state__content {
+        @apply mx-auto max-w-md;
+    }
+
+    .empty-state__icon {
+        @apply mx-auto h-32 w-32 text-gray-300;
+    }
+
+    .empty-state__title {
+        @apply mt-6 text-xl font-semibold text-gray-900;
+    }
+
+    .empty-state__description {
+        @apply mt-2 text-gray-500;
+    }
+
+    .empty-state__action {
+        @apply mt-6;
+    }
+
+    .empty-state__button {
+        @apply inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200;
+    }
+}

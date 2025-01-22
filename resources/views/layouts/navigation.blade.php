@@ -15,8 +15,13 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('stickers.index')" :active="request()->routeIs('stickers.*')">
-                        {{ __('Stickers') }}
+                    
+                    <x-nav-link :href="route('stickers.create')" :active="request()->routeIs('stickers.create')">
+                        {{ __('Create Sticker') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('stickers.index')" :active="request()->routeIs('stickers.index')">
+                        {{ __('Browse Gallery') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -73,8 +78,13 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('stickers.index')" :active="request()->routeIs('stickers.*')">
-                {{ __('Stickers') }}
+            
+            <x-responsive-nav-link :href="route('stickers.create')" :active="request()->routeIs('stickers.create')">
+                {{ __('Create Sticker') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('stickers.index')" :active="request()->routeIs('stickers.index')">
+                {{ __('Browse Gallery') }}
             </x-responsive-nav-link>
         </div>
 

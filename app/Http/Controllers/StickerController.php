@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GenerateStickerRequest;
 use App\Services\StickerGenerationService;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Sticker;
 
 class StickerController extends Controller
 {

@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('stickers', StickerController::class)->except(['edit', 'update']);
+    Route::resource('stickers', StickerController::class)->except(['edit', 'update', 'destroy']);
 });
 
 require __DIR__.'/auth.php';

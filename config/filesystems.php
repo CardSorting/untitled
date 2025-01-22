@@ -60,6 +60,18 @@ return [
             'report' => false,
         ],
 
+        'backblaze' => [
+            'driver' => 's3',
+            'key' => config('services.backblaze.key_id'),
+            'secret' => config('services.backblaze.application_key'),
+            'region' => 'us-east-005',
+            'bucket' => config('services.backblaze.bucket_id'),
+            'endpoint' => config('services.backblaze.endpoint'),
+            'use_path_style_endpoint' => true,
+            'throw' => false,
+            'report' => false,
+        ],
+
     ],
 
     /*

@@ -39,4 +39,11 @@ return [
         ],
     ],
 
+    'backblaze' => [
+        'key_id' => env('BACKBLAZE_KEY_ID', '005b2784557c8a4000000002a'),
+        'application_key' => env('BACKBLAZE_APPLICATION_KEY', 'K005RTGNRc31CWZzQGXXzqGrRjRsw1A'),
+        'bucket_id' => env('BACKBLAZE_BUCKET_ID', '2b326768144595079c480a14'),
+        'endpoint' => env('BACKBLAZE_ENDPOINT', 's3.us-east-005.backblazeb2.com'),
+    ],
+
 ];

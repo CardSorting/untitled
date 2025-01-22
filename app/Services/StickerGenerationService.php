@@ -32,7 +32,7 @@ class StickerGenerationService implements StickerGenerationServiceInterface
             // Process and save the image
             $processedImage = $this->dallEService->processImage($imageData);
             $filename = 'stickers/' . Str::uuid() . '.png';
-            Storage::disk('public')->put($filename, $processedImage);
+            Storage::disk('backblaze')->put($filename, $processedImage);
 
             // Create and return sticker record
             return $user->stickers()->create([
@@ -43,7 +43,7 @@ class StickerGenerationService implements StickerGenerationServiceInterface
                     $data['expression'],
                     $data['custom_style'] ?? null
                 ),
-                'image_path' => $filename,
+                'image_path' => Storage::disk('backblaze')->url($filename),
                 'size' => $data['size'] ?? '1024x1024',
                 'style' => $data['style'] ?? 'default',
                 'custom_style' => $data['custom_style'] ?? null,

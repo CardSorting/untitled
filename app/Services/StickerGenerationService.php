@@ -32,7 +32,12 @@ class StickerGenerationService implements StickerGenerationServiceInterface
             // Process and save the image
             $processedImage = $this->dallEService->processImage($imageData);
             $filename = 'stickers/' . Str::uuid() . '.png';
-            Storage::disk('backblaze')->put($filename, $processedImage);
+            
+            // Upload with public visibility
+            Storage::disk('backblaze')->put($filename, $processedImage, [
+                'visibility' => 'public',
+                'CacheControl' => 'max-age=31536000',
+            ]);
 
             // Create and return sticker record
             return $user->stickers()->create([

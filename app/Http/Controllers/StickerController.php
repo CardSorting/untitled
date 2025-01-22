@@ -25,7 +25,25 @@ class StickerController extends Controller
 
     public function create()
     {
-        return view('stickers.create');
+        $expressions = [
+            'hype' => '😊 Hype',
+            'tilted' => '😠 Tilted',
+            'gg' => '😎 GG',
+            'sadge' => '😢 Sadge',
+            'clutch' => '😮 Clutch',
+            'pog' => '😲 Pog',
+            'facepalm' => '🤦 Facepalm',
+            'monkas' => '😱 Monkas',
+            'ez' => '😏 EZ',
+            'nope' => '🙅 Nope',
+            'sleepy' => '😴 Sleepy',
+            'blush' => '😊 Blush',
+            'surprise' => '😮 Surprise',
+            'laugh' => '😂 Laugh',
+            'determined' => '😤 Determined',
+        ];
+
+        return view('stickers.create', compact('expressions'));
     }
 
     public function store(GenerateStickerRequest $request): RedirectResponse

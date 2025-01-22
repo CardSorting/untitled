@@ -85,7 +85,9 @@
                                         aria-describedby="expression-help"
                                     >
                                         <option value="">Select an expression</option>
-                                        <!-- Options remain the same -->
+                                        @foreach($expressions as $value => $label)
+                                            <option value="{{ $value }}" {{ old('expression') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 @error('expression')

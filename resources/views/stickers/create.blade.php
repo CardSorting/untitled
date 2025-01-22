@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('stickers.store') }}" method="POST" class="space-y-6">
+                    <form action="{{ route('stickers.store') }}" method="POST" class="space-y-6" id="sticker-form">
                         @csrf
 
                         <div>
@@ -100,42 +100,73 @@
                                 >
                                     <option value="default">Default</option>
                                     <option value="cartoon">Cartoon</option>
-                                <option value="realistic">Realistic</option>
-                            </select>
-                            @error('style')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="custom_style" class="block text-sm font-medium text-gray-700">
-                                Custom Style Elements (Optional)
-                            </label>
-                            <div class="mt-1">
-                                <textarea
-                                    id="custom_style"
-                                    name="custom_style"
-                                    rows="2"
-                                    class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    placeholder="E.g., wearing a crown and wizard hat, cyberpunk style, pixel art style"
-                                >{{ old('custom_style') }}</textarea>
+                                    <option value="realistic">Realistic</option>
+                                </select>
+                                @error('style')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
-                            <p class="mt-1 text-xs text-gray-500">Add any custom style elements or accessories you'd like your sticker to have.</p>
-                            @error('custom_style')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+
+                            <div>
+                                <label for="custom_style" class="block text-sm font-medium text-gray-700">
+                                    Custom Style Elements (Optional)
+                                </label>
+                                <div class="mt-1">
+                                    <textarea
+                                        id="custom_style"
+                                        name="custom_style"
+                                        rows="2"
+                                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        placeholder="E.g., wearing a crown and wizard hat, cyberpunk style, pixel art style"
+                                    >{{ old('custom_style') }}</textarea>
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">Add any custom style elements or accessories you'd like your sticker to have.</p>
+                                @error('custom_style')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="flex justify-end">
+                        <div class="flex justify-end items-center gap-4">
+                            <div id="loading-indicator" class="hidden">
+                                <div class="flex items-center">
+                                    <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+                                    <span class="ml-2 text-sm text-gray-600">Generating your sticker...</span>
+                                </div>
+                            </div>
+                            
                             <button
                                 type="submit"
-                                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                id="submit-button"
+                                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
                             >
-                                Generate Sticker
+                                <span id="button-text">Generate Sticker</span>
+                                <span id="button-spinner" class="hidden ml-2">
+                                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </span>
                             </button>
                         </div>
                     </form>
+
+                    @push('scripts')
+                    <script>
+                        document.getElementById('sticker-form').addEventListener('submit', function(e) {
+                            const button = document.getElementById('submit-button');
+                            const buttonText = document.getElementById('button-text');
+                            const spinner = document.getElementById('button-spinner');
+                            const loadingIndicator = document.getElementById('loading-indicator');
+                            
+                            // Disable button and show loading state
+                            button.disabled = true;
+                            buttonText.textContent = 'Generating...';
+                            spinner.classList.remove('hidden');
+                            loadingIndicator.classList.remove('hidden');
+                        });
+                    </script>
+                    @endpush
                 </div>
             </div>
         </div>

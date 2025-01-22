@@ -66,6 +66,18 @@ class DallEService
         return $response->data[0]->b64_json;
     }
 
+    public function getPrompt(string $subject, string $expression, ?string $customStyle = null): string
+    {
+        $template = self::EXPRESSIONS[strtolower($expression)] ?? throw new \InvalidArgumentException("Invalid expression: {$expression}");
+        $prompt = str_replace('{subject}', $subject, $template);
+        
+        if ($customStyle) {
+            $prompt .= " Style: {$customStyle}.";
+        }
+        
+        return $prompt;
+    }
+
     public function processImage($base64Image)
     {
         // Convert base64 to image and remove background if needed

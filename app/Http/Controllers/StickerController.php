@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GenerateStickerRequest;
 use App\Services\GoAPIService;
+use App\Contracts\LoadingStateInterface;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Sticker;
 use App\Jobs\CheckImageGenerationStatus;
@@ -11,10 +12,12 @@ use App\Jobs\CheckImageGenerationStatus;
 class StickerController extends Controller
 {
     protected $goAPIService;
+    protected $loadingStateService;
 
-    public function __construct(GoAPIService $goAPIService)
+    public function __construct(GoAPIService $goAPIService, LoadingStateInterface $loadingStateService)
     {
         $this->goAPIService = $goAPIService;
+        $this->loadingStateService = $loadingStateService;
         $this->middleware(['auth']);
     }
 
@@ -52,12 +55,25 @@ class StickerController extends Controller
         try {
             $data = $request->validated();
             
+            // Start loading state
+            $loadingState = $this->loadingStateService->startLoading([
+                'message' => 'Initializing sticker generation...',
+                'progress' => 0,
+                'substages' => [
+                    'Analyzing your creative vision',
+                    'Gathering artistic inspiration',
+                    'Preparing the digital canvas',
+                    'Setting up creative elements'
+                ]
+            ]);
+
             // Create sticker record first
             $sticker = Sticker::create([
                 'user_id' => auth()->id(),
                 'expression' => $data['expression'],
                 'subject' => $data['subject'],
-                'status' => Sticker::STATUS_PROCESSING
+                'status' => Sticker::STATUS_PROCESSING,
+                'loading_state_id' => $loadingState->id
             ]);
 
             // Initiate async image generation
@@ -65,6 +81,18 @@ class StickerController extends Controller
                 'prompt' => "{$data['expression']} {$data['subject']}",
                 'aspect_ratio' => '1:1',
                 'process_mode' => 'relax'
+            ]);
+
+            // Update loading state
+            $this->loadingStateService->updateLoading($loadingState->id, [
+                'message' => 'Crafting your sticker...',
+                'progress' => 25,
+                'substages' => [
+                    'Sketching initial composition',
+                    'Developing core elements',
+                    'Adding artistic flourishes',
+                    'Refining visual details'
+                ]
             ]);
 
             // Update sticker with task ID and status
@@ -97,7 +125,16 @@ class StickerController extends Controller
     public function show(Sticker $sticker)
     {
         $this->authorize('view', $sticker);
-        return view('stickers.show', compact('sticker'));
+        
+        // Get loading state if exists
+        $loadingState = $sticker->loading_state_id 
+            ? $this->loadingStateService->getLoadingState($sticker->loading_state_id)
+            : null;
+
+        return view('stickers.show', [
+            'sticker' => $sticker,
+            'loadingState' => $loadingState
+        ]);
     }
 
     public function destroy(Sticker $sticker): RedirectResponse

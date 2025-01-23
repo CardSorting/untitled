@@ -18,9 +18,13 @@
                         required
                     >
                     <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600 flex items-center">
-                        {{ $subject['label'] }}
-                        @if(isset($subject['country']))
-                            <span class="ml-1">{{ $subject['country'] }}</span>
+                        @if(is_array($subject))
+                            {{ $subject['label'] }}
+                            @if(isset($subject['country']))
+                                <span class="ml-1">{{ $subject['country'] }}</span>
+                            @endif
+                        @else
+                            {{ $subject }}
                         @endif
                     </span>
                     <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>

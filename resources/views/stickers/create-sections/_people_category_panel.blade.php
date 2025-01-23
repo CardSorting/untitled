@@ -29,13 +29,6 @@
                     </span>
                     <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>
                 </label>
-                <div class="mt-2">
-                    <label class="text-sm font-medium text-gray-700">Gender</label>
-                    <select name="gender_{{ $value }}" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
             @endforeach
         </div>
     @endforeach

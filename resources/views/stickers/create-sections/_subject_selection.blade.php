@@ -8,8 +8,15 @@
         </span>
     </label>
     <div class="relative">
-        <div x-data="{ mainTab: 'animals', animalTab: 'pets', peopleTab: 'healthcare', sportsTab: 'team_sports', countries: @json($countries) }">
+        <div x-data="{ mainTab: 'animals', animalTab: 'pets', peopleTab: 'healthcare', sportsTab: 'team_sports', countries: @json($countries), gender: 'male' }">
             <!-- Main Tab Navigation -->
+            <div class="mt-4">
+                <label class="text-sm font-medium text-gray-700">Gender</label>
+                <select x-model="gender" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
             <div class="border-b border-gray-200">
                 <nav class="-mb-px flex space-x-6" aria-label="Main categories">
                     <button

@@ -13,9 +13,12 @@
                     <div class="p-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Welcome Back, {{ Auth::user()->name }}!</h3>
                         <p class="text-gray-600">Create unique stickers or explore the gallery to see what others have made.</p>
-                        <div class="mt-4 flex space-x-4">
-                            <a href="{{ route('stickers.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200">
-                                Create New Sticker
+                        <div class="mt-4 flex flex-wrap gap-4">
+                            <a href="{{ route('stickers.sports.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                Create Sports Sticker
+                            </a>
+                            <a href="{{ route('stickers.religious.create') }}" class="inline-flex items-center px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200">
+                                Create Religious Sticker
                             </a>
                             <a href="{{ route('stickers.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200">
                                 Browse Gallery
@@ -65,8 +68,8 @@
                                 title="No stickers created yet"
                                 description="Start creating your first sticker to see it here"
                                 icon="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758L5 19m7-7l2.879-2.879M12 12l2.879 2.879M12 12l-2.879 2.879M12 12l-2.879-2.879M12 12l2.879-2.879"
-                                action="{{ route('stickers.create') }}"
-                                actionText="Create First Sticker"
+                                action="{{ route('stickers.sports.create') }}"
+                                actionText="Create Your First Sticker"
                                 class="col-span-4"
                             />
                         @endforelse

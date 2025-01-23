@@ -1,7 +1,7 @@
 <!-- Sports Category Panel -->
 <div x-show="mainTab === 'sports'">
     @include('stickers.create-sections._sports_sub_tabs_navigation')
-    
+
     @foreach(['team_sports', 'individual_sports', 'combat_sports', 'esports'] as $category)
         <div
             x-show="sportsTab === '{{ $category }}'"

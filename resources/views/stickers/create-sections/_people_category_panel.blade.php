@@ -1,7 +1,7 @@
 <!-- People Category Panel -->
 <div x-show="mainTab === 'people'">
     @include('stickers.create-sections._people_sub_tabs_navigation')
-    
+
     @foreach(['healthcare', 'tech', 'education', 'business', 'creative'] as $category)
         <div
             x-show="peopleTab === '{{ $category }}'"

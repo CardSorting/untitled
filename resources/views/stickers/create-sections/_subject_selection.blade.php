@@ -8,7 +8,7 @@
         </span>
     </label>
     <div class="relative">
-        <div x-data="{ mainTab: 'animals', animalTab: 'pets', peopleTab: 'healthcare' }">
+        <div x-data="{ mainTab: 'animals', animalTab: 'pets', peopleTab: 'healthcare', sportsTab: 'team_sports' }">
             <!-- Main Tab Navigation -->
             <div class="border-b border-gray-200">
                 <nav class="-mb-px flex space-x-6" aria-label="Main categories">
@@ -27,6 +27,14 @@
                         class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
                     >
                         People
+                    </button>
+                    <button
+                        type="button"
+                        @click="mainTab = 'sports'"
+                        :class="mainTab === 'sports' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                        class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                    >
+                        Sports
                     </button>
                 </nav>
             </div>
@@ -152,6 +160,73 @@
                 @foreach(['healthcare', 'tech', 'education', 'business', 'creative'] as $category)
                     <div
                         x-show="peopleTab === '{{ $category }}'"
+                        class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3"
+                    >
+                        @foreach($subjects[$category] as $value => $label)
+                            <label class="relative flex items-start p-4 cursor-pointer bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
+                                <input
+                                    type="radio"
+                                    name="subject"
+                                    value="{{ $value }}"
+                                    {{ old('subject') == $value ? 'checked' : '' }}
+                                    class="sr-only peer"
+                                    required
+                                >
+                                <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600">
+                                    {{ $label }}
+                                </span>
+                                <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>
+                            </label>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Sports Tab Panels -->
+            <div x-show="mainTab === 'sports'">
+                <div class="border-b border-gray-200 mt-4 overflow-x-auto">
+                    <nav class="-mb-px flex space-x-6" aria-label="Sports categories">
+                        <button
+                            type="button"
+                            @click="sportsTab = 'team_sports'"
+                            :class="sportsTab === 'team_sports' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">⚽️</span>
+                            Team Sports
+                        </button>
+                        <button
+                            type="button"
+                            @click="sportsTab = 'individual_sports'"
+                            :class="sportsTab === 'individual_sports' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🎾</span>
+                            Individual Sports
+                        </button>
+                        <button
+                            type="button"
+                            @click="sportsTab = 'combat_sports'"
+                            :class="sportsTab === 'combat_sports' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🥊</span>
+                            Combat Sports
+                        </button>
+                        <button
+                            type="button"
+                            @click="sportsTab = 'esports'"
+                            :class="sportsTab === 'esports' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🎮</span>
+                            Esports
+                        </button>
+                    </nav>
+                </div>
+                @foreach(['team_sports', 'individual_sports', 'combat_sports', 'esports'] as $category)
+                    <div
+                        x-show="sportsTab === '{{ $category }}'"
                         class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3"
                     >
                         @foreach($subjects[$category] as $value => $label)

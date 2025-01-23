@@ -7,6 +7,36 @@ class SubjectTemplateRepository
     public function getSubjects(): array
     {
         return [
+            'team_sports' => [
+                'basketball-player' => 'Basketball Player',
+                'soccer-player' => 'Soccer Player',
+                'baseball-player' => 'Baseball Player',
+                'hockey-player' => 'Hockey Player',
+                'cricket-player' => 'Cricket Player',
+                'volleyball-player' => 'Volleyball Player',
+            ],
+            'individual_sports' => [
+                'tennis-player' => 'Tennis Player',
+                'gymnast' => 'Gymnast',
+                'swimmer' => 'Swimmer',
+                'track-athlete' => 'Track Athlete',
+                'skater' => 'Skater',
+                'golfer' => 'Golfer',
+            ],
+            'combat_sports' => [
+                'boxer' => 'Boxer',
+                'wrestler' => 'Wrestler',
+                'martial-artist' => 'Martial Artist',
+                'fencer' => 'Fencer',
+                'judoka' => 'Judoka',
+            ],
+            'esports' => [
+                'pro-gamer' => 'Pro Gamer',
+                'streamer' => 'Streamer',
+                'team-captain' => 'Team Captain',
+                'coach' => 'Coach',
+                'tournament-player' => 'Tournament Player',
+            ],
             'pets' => [
                 'cat' => 'Cat',
                 'dog' => 'Dog',
@@ -99,6 +129,10 @@ class SubjectTemplateRepository
     public function getCategories(): array
     {
         return [
+            'team_sports' => 'Team Sports',
+            'individual_sports' => 'Individual Sports',
+            'combat_sports' => 'Combat Sports',
+            'esports' => 'Esports',
             'pets' => 'Pets',
             'wild_animals' => 'Wild Animals',
             'mythical' => 'Mythical Creatures',

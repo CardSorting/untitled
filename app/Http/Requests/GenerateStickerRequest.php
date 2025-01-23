@@ -14,10 +14,26 @@ class GenerateStickerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['required', 'string', 'in:cat,dog,penguin,dragon,bear,fox,bunny,owl,panda,shark'],
-            'expression' => ['required', 'string', 'in:hype,tilted,gg,sadge,clutch,pog,facepalm,monkas,ez,nope,sleepy,blush,surprise,laugh,determined'],
-            'size' => ['sometimes', 'string', 'in:square_hd,square,portrait_4_3,portrait_16_9,landscape_4_3,landscape_16_9'],
-            'style' => ['sometimes', 'string', 'in:realistic_image,digital_illustration,vector_illustration'],
+            'subject' => [
+                'required', 
+                'string', 
+                'in:cat,dog,bunny,hamster,parrot,guinea-pig,bear,fox,wolf,owl,penguin,panda,shark,lion,tiger,elephant,dragon,unicorn,phoenix,griffin,mermaid,pegasus,robot,alien,ninja,pirate,astronaut,wizard'
+            ],
+            'expression' => [
+                'required', 
+                'string', 
+                'in:hype,tilted,gg,sadge,clutch,pog,facepalm,monkas,ez,nope,sleepy,blush,surprise,laugh,determined'
+            ],
+            'size' => [
+                'sometimes', 
+                'string', 
+                'in:square_hd,square,portrait_4_3,portrait_16_9,landscape_4_3,landscape_16_9'
+            ],
+            'style' => [
+                'sometimes', 
+                'string', 
+                'in:realistic_image,digital_illustration,vector_illustration'
+            ],
             'custom_style' => [
                 'nullable',
                 'string',

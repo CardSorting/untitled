@@ -49,18 +49,80 @@
                                     </span>
                                 </label>
                                 <div class="relative">
-                                    <select
-                                        id="subject"
-                                        name="subject"
-                                        class="block w-full pl-4 pr-10 py-3.5 text-gray-900 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white hover:border-gray-400"
-                                        required
-                                        aria-describedby="subject-help"
-                                    >
-                                        <option value="">Select a character</option>
-                                        @foreach($subjects as $value => $label)
-                                            <option value="{{ $value }}" {{ old('subject') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                    <div x-data="{ activeTab: 'pets' }">
+                                        <!-- Tab Navigation -->
+                                        <div class="border-b border-gray-200">
+                                            <nav class="-mb-px flex space-x-6" aria-label="Subject categories">
+                                                <button
+                                                    type="button"
+                                                    @click="activeTab = 'pets'"
+                                                    :class="activeTab === 'pets' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                                                    class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                                                >
+                                                    <span class="text-lg">🐱</span>
+                                                    Pets
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="activeTab = 'wild_animals'"
+                                                    :class="activeTab === 'wild_animals' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                                                    class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                                                >
+                                                    <span class="text-lg">🦁</span>
+                                                    Wild Animals
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="activeTab = 'mythical'"
+                                                    :class="activeTab === 'mythical' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                                                    class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                                                >
+                                                    <span class="text-lg">🐉</span>
+                                                    Mythical
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="activeTab = 'fantastic'"
+                                                    :class="activeTab === 'fantastic' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                                                    class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                                                >
+                                                    <span class="text-lg">🤖</span>
+                                                    Fantastic
+                                                </button>
+                                            </nav>
+                                        </div>
+
+                                        <!-- Tab Panels -->
+                                        @foreach($subjects as $category => $options)
+                                            <div
+                                                x-show="activeTab === '{{ $category }}'"
+                                                x-transition:enter="transition ease-out duration-200"
+                                                x-transition:enter-start="opacity-0 translate-y-1"
+                                                x-transition:enter-end="opacity-100 translate-y-0"
+                                                x-transition:leave="transition ease-in duration-150"
+                                                x-transition:leave-start="opacity-100 translate-y-0"
+                                                x-transition:leave-end="opacity-0 translate-y-1"
+                                                class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3"
+                                            >
+                                                @foreach($options as $value => $label)
+                                                    <label class="relative flex items-start p-4 cursor-pointer bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
+                                                        <input
+                                                            type="radio"
+                                                            name="subject"
+                                                            value="{{ $value }}"
+                                                            {{ old('subject') == $value ? 'checked' : '' }}
+                                                            class="sr-only peer"
+                                                            required
+                                                        >
+                                                        <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600">
+                                                            {{ $label }}
+                                                        </span>
+                                                        <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>
+                                                    </label>
+                                                @endforeach
+                                            </div>
                                         @endforeach
-                                    </select>
+                                    </div>
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />

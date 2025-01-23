@@ -26,16 +26,49 @@ class StickerController extends Controller
     public function create(): View
     {
         $subjects = [
-            'cat' => 'Cat',
-            'dog' => 'Dog',
-            'penguin' => 'Penguin',
-            'dragon' => 'Dragon',
-            'bear' => 'Bear',
-            'fox' => 'Fox',
-            'bunny' => 'Bunny',
-            'owl' => 'Owl',
-            'panda' => 'Panda',
-            'shark' => 'Shark',
+            'pets' => [
+                'cat' => 'Cat',
+                'dog' => 'Dog',
+                'bunny' => 'Bunny',
+                'hamster' => 'Hamster',
+                'parrot' => 'Parrot',
+                'guinea-pig' => 'Guinea Pig',
+            ],
+            'wild_animals' => [
+                'bear' => 'Bear',
+                'fox' => 'Fox',
+                'wolf' => 'Wolf',
+                'owl' => 'Owl',
+                'penguin' => 'Penguin',
+                'panda' => 'Panda',
+                'shark' => 'Shark',
+                'lion' => 'Lion',
+                'tiger' => 'Tiger',
+                'elephant' => 'Elephant',
+            ],
+            'mythical' => [
+                'dragon' => 'Dragon',
+                'unicorn' => 'Unicorn',
+                'phoenix' => 'Phoenix',
+                'griffin' => 'Griffin',
+                'mermaid' => 'Mermaid',
+                'pegasus' => 'Pegasus',
+            ],
+            'fantastic' => [
+                'robot' => 'Robot',
+                'alien' => 'Alien',
+                'ninja' => 'Ninja',
+                'pirate' => 'Pirate',
+                'astronaut' => 'Astronaut',
+                'wizard' => 'Wizard',
+            ],
+        ];
+
+        $subjectCategories = [
+            'pets' => 'Pets',
+            'wild_animals' => 'Wild Animals',
+            'mythical' => 'Mythical Creatures',
+            'fantastic' => 'Fantastic Characters',
         ];
 
         $expressions = [

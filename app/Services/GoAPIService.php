@@ -38,8 +38,7 @@ class GoAPIService
             ]);
 
             if ($response->successful()) {
-                $taskId = $response->json('data.task_id');
-                return $this->getImageUrl($taskId);
+                return $response->json('data.task_id');
             }
 
             throw new StickerGenerationException('API request failed: ' . $response->json('message'));
@@ -49,34 +48,17 @@ class GoAPIService
         }
     }
 
-    protected function getImageUrl(string $taskId): string
+    public function checkStatus(string $taskId): array
     {
-        $maxAttempts = 10;
-        $attempt = 0;
-        
-        while ($attempt < $maxAttempts) {
-            sleep(5); // Wait between status checks
-            
-            $response = Http::withHeaders([
-                'x-api-key' => $this->apiKey,
-            ])->get("https://api.goapi.ai/api/v1/task/{$taskId}");
+        $response = Http::withHeaders([
+            'x-api-key' => $this->apiKey,
+        ])->get("https://api.goapi.ai/api/v1/task/{$taskId}");
 
-            if ($response->successful()) {
-                $data = $response->json('data');
-                
-                if ($data['status'] === 'completed') {
-                    return $data['output']['image_urls'][0];
-                }
-                
-                if ($data['status'] === 'failed') {
-                    throw new StickerGenerationException('Image generation failed');
-                }
-            }
-            
-            $attempt++;
+        if ($response->successful()) {
+            return $response->json('data');
         }
 
-        throw new StickerGenerationException('Image generation timed out');
+        throw new StickerGenerationException('Failed to check status: ' . $response->json('message'));
     }
 
     public function getPrompt(string $expression, string $subject): string

@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GenerateStickerRequest;
-use App\Services\StickerGenerationService;
+use App\Services\GoAPIService;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Sticker;
+use App\Jobs\CheckImageGenerationStatus;
 
 class StickerController extends Controller
 {
-    protected $stickerGenerationService;
+    protected $goAPIService;
 
-    public function __construct(StickerGenerationService $stickerGenerationService)
+    public function __construct(GoAPIService $goAPIService)
     {
-        $this->stickerGenerationService = $stickerGenerationService;
+        $this->goAPIService = $goAPIService;
         $this->middleware(['auth']);
     }
 
@@ -49,14 +50,44 @@ class StickerController extends Controller
     public function store(GenerateStickerRequest $request): RedirectResponse
     {
         try {
-            $sticker = $this->stickerGenerationService->generateSticker(
-                $request->validated(),
-                auth()->user()
-            );
+            $data = $request->validated();
+            
+            // Create sticker record first
+            $sticker = Sticker::create([
+                'user_id' => auth()->id(),
+                'expression' => $data['expression'],
+                'subject' => $data['subject'],
+                'status' => Sticker::STATUS_PROCESSING
+            ]);
+
+            // Initiate async image generation
+            $response = $this->goAPIService->generateImage([
+                'prompt' => "{$data['expression']} {$data['subject']}",
+                'aspect_ratio' => '1:1',
+                'process_mode' => 'relax'
+            ]);
+
+            // Update sticker with task ID and status
+            $sticker->update([
+                'status' => Sticker::STATUS_PROCESSING,
+                'metadata' => [
+                    'task_id' => $response['task_id'],
+                    'started_at' => now()
+                ]
+            ]);
+
+            // Dispatch status check job
+            CheckImageGenerationStatus::dispatch($response['task_id'], $sticker->id)
+                ->delay(now()->addSeconds(10));
 
             return redirect()->route('stickers.show', $sticker)
-                ->with('success', 'Sticker generated successfully!');
+                ->with('success', 'Sticker generation started! Check back soon.');
         } catch (\Exception $e) {
+            // Update sticker status if it exists
+            if (isset($sticker)) {
+                $sticker->update(['status' => 'failed']);
+            }
+            
             return back()
                 ->withInput()
                 ->with('error', 'Failed to generate sticker: ' . $e->getMessage());

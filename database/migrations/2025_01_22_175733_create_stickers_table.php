@@ -18,9 +18,12 @@ return new class extends Migration
             $table->string('expression');
             $table->text('prompt');
             $table->string('image_path');
+            $table->string('image_url')->nullable();
             $table->string('size')->default('1024x1024');
             $table->string('style')->default('default');
             $table->string('custom_style')->nullable();
+            $table->string('status')->default('processing');
+            $table->json('metadata')->nullable();
             $table->timestamps();
         });
     }

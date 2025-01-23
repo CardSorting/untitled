@@ -16,13 +16,40 @@ class Sticker extends Model
         'expression',
         'prompt',
         'image_path',
+        'image_url',
         'size',
         'style',
         'custom_style',
         'user_id',
+        'status',
+        'metadata',
     ];
 
     protected $appends = ['image_url'];
+
+    protected $casts = [
+        'status' => 'string',
+        'metadata' => 'array',
+    ];
+
+    public const STATUS_PROCESSING = 'processing';
+    public const STATUS_COMPLETED = 'completed';
+    public const STATUS_FAILED = 'failed';
+
+    public function isProcessing(): bool
+    {
+        return $this->status === self::STATUS_PROCESSING;
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this->status === self::STATUS_COMPLETED;
+    }
+
+    public function isFailed(): bool
+    {
+        return $this->status === self::STATUS_FAILED;
+    }
 
     public function user(): BelongsTo
     {

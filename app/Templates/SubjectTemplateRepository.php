@@ -155,4 +155,18 @@ class SubjectTemplateRepository
             'religious' => 'Religious Figures',
         ];
     }
+
+    public function getReligiousFigures(): array
+    {
+        return [
+            'priest' => ['label' => 'Priest', 'country' => 'it'],
+            'monk' => ['label' => 'Monk', 'country' => 'in'],
+            'imam' => ['label' => 'Imam', 'country' => 'sa'],
+            'rabbi' => ['label' => 'Rabbi', 'country' => 'il'],
+            'pastor' => ['label' => 'Pastor', 'country' => 'us'],
+            'buddhist-monk' => ['label' => 'Buddhist Monk', 'country' => 'cn'],
+            'sikh-priest' => ['label' => 'Sikh Priest', 'country' => 'in'],
+            'shaman' => ['label' => 'Shaman', 'country' => 'ru'],
+        ];
+    }
 }

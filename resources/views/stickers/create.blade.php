@@ -52,6 +52,12 @@
 
                             <!-- Grid Section -->
                             @include('stickers.create-sections._size_style_selection')
+
+                            <!-- Sports Category Panel -->
+                            @include('stickers.create-sections._sports_category_panel')
+
+                            <!-- Religious Category Panel -->
+                            @include('stickers.create-sections._religious_category_panel')
                         </div>
 
                         <!-- Submit Button -->

@@ -2,7 +2,7 @@
 <div x-show="mainTab === 'religious'">
     @include('stickers.create-sections._religious_sub_tabs_navigation')
 
-    @foreach(['priest', 'monk', 'imam', 'rabbi', 'pastor', 'buddhist-monk', 'sikh-priest', 'shaman'] as $category)
+    @foreach(['religious'] as $category)
         <div
             x-show="religiousTab === '{{ $category }}'"
             class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3"

@@ -37,6 +37,7 @@ class StickerController extends Controller
             'subjectCategories' => $this->subjectTemplates->getCategories(),
             'expressions' => $this->expressionTemplates->getExpressions(),
             'countries' => $countries,
+            'religious_figures' => $this->subjectTemplates->getReligiousFigures(),
         ]);
     }
 

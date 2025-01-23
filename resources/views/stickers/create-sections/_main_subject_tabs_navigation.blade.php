@@ -25,5 +25,13 @@
         >
             Sports
         </button>
+        <button
+            type="button"
+            @click="mainTab = 'religious'"
+            :class="mainTab === 'religious' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+        >
+            Religious
+        </button>
     </nav>
 </div>

@@ -46,4 +46,10 @@ return [
         'endpoint' => env('BACKBLAZE_ENDPOINT', 's3.us-east-005.backblazeb2.com'),
     ],
 
+    'goapi' => [
+        'api_key' => env('GOAPI_KEY'),
+        'base_url' => 'https://api.goapi.ai/api/v1',
+        'timeout' => 60,
+    ],
+
 ];

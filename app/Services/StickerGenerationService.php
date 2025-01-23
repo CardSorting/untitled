@@ -5,36 +5,35 @@ namespace App\Services;
 use App\Contracts\StickerGenerationServiceInterface;
 use App\Models\Sticker;
 use App\Models\User;
-use App\Services\DallEService;
+use App\Services\GoAPIService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Exceptions\StickerGenerationException;
 
 class StickerGenerationService implements StickerGenerationServiceInterface
 {
-    protected $dallEService;
+    protected $goAPIService;
 
-    public function __construct(DallEService $dallEService)
+    public function __construct(GoAPIService $goAPIService)
     {
-        $this->dallEService = $dallEService;
+        $this->goAPIService = $goAPIService;
     }
 
     public function generateSticker(array $data, User $user): Sticker
     {
         try {
-            // Generate image with DALL-E
-            $imageData = $this->dallEService->generateSticker(
-                $data['subject'],
+            // Generate image with GoAPI
+            $imageUrl = $this->goAPIService->generateSticker(
                 $data['expression'],
-                $data['custom_style'] ?? null
+                $data['subject']
             );
 
-            // Process and save the image
-            $processedImage = $this->dallEService->processImage($imageData);
+            // Download and save the image
+            $imageData = file_get_contents($imageUrl);
             $filename = 'stickers/' . Str::uuid() . '.png';
             
             // Upload with public visibility
-            Storage::disk('backblaze')->put($filename, $processedImage, [
+            Storage::disk('backblaze')->put($filename, $imageData, [
                 'visibility' => 'public',
                 'CacheControl' => 'max-age=31536000',
             ]);
@@ -43,10 +42,9 @@ class StickerGenerationService implements StickerGenerationServiceInterface
             return $user->stickers()->create([
                 'subject' => $data['subject'],
                 'expression' => $data['expression'],
-                'prompt' => $this->dallEService->getPrompt(
-                    $data['subject'],
+                'prompt' => $this->goAPIService->getPrompt(
                     $data['expression'],
-                    $data['custom_style'] ?? null
+                    $data['subject']
                 ),
                 'image_path' => Storage::disk('backblaze')->url($filename),
                 'size' => $data['size'] ?? '1024x1024',

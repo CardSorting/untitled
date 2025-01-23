@@ -27,8 +27,9 @@ class StickerGenerationService implements StickerGenerationServiceInterface
             $prompt = $this->buildPrompt($data['subject'], $data['expression']);
             
             $response = Http::withHeaders([
-                'Authorization' => $this->apiKey,
+                'Authorization' => 'Bearer ' . $this->apiKey,
                 'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
             ])->post($this->apiUrl, [
                 'input' => [
                     'prompt' => $prompt,
@@ -63,7 +64,12 @@ class StickerGenerationService implements StickerGenerationServiceInterface
                     'content_type' => $images[0]['content_type'],
                     'file_name' => $images[0]['file_name'],
                     'file_size' => $images[0]['file_size'],
-                    'response' => $result,
+                    'job_id' => $response->header('x-fal-job-id'),
+                    'started_at' => $response->header('x-fal-started-at'),
+                    'duration' => $response->header('x-fal-duration'),
+                    'cost_estimate' => $response->header('x-fal-cost-estimate'),
+                    'endpoint' => 'fal-ai/recraft-v3',
+                    'full_response' => $result,
                 ],
                 'version' => 'v1',
             ]);

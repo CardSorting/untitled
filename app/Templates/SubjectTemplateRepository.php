@@ -43,6 +43,56 @@ class SubjectTemplateRepository
                 'astronaut' => 'Astronaut',
                 'wizard' => 'Wizard',
             ],
+            'healthcare' => [
+                'doctor' => 'Doctor',
+                'nurse' => 'Nurse',
+                'surgeon' => 'Surgeon',
+                'pharmacist' => 'Pharmacist',
+                'dentist' => 'Dentist',
+                'paramedic' => 'Paramedic',
+                'veterinarian' => 'Veterinarian',
+                'therapist' => 'Therapist',
+            ],
+            'tech' => [
+                'programmer' => 'Programmer',
+                'designer' => 'Designer',
+                'data-scientist' => 'Data Scientist',
+                'sysadmin' => 'System Administrator',
+                'game-dev' => 'Game Developer',
+                'cybersecurity' => 'Cybersecurity Expert',
+                'devops' => 'DevOps Engineer',
+                'qa-engineer' => 'QA Engineer',
+            ],
+            'education' => [
+                'teacher' => 'Teacher',
+                'professor' => 'Professor',
+                'researcher' => 'Researcher',
+                'librarian' => 'Librarian',
+                'coach' => 'Coach',
+                'tutor' => 'Tutor',
+                'counselor' => 'Counselor',
+                'principal' => 'Principal',
+            ],
+            'business' => [
+                'entrepreneur' => 'Entrepreneur',
+                'manager' => 'Manager',
+                'consultant' => 'Consultant',
+                'accountant' => 'Accountant',
+                'lawyer' => 'Lawyer',
+                'marketer' => 'Marketer',
+                'analyst' => 'Business Analyst',
+                'hr-specialist' => 'HR Specialist',
+            ],
+            'creative' => [
+                'artist' => 'Artist',
+                'musician' => 'Musician',
+                'writer' => 'Writer',
+                'photographer' => 'Photographer',
+                'filmmaker' => 'Filmmaker',
+                'architect' => 'Architect',
+                'chef' => 'Chef',
+                'fashion-designer' => 'Fashion Designer',
+            ],
         ];
     }
 
@@ -53,6 +103,11 @@ class SubjectTemplateRepository
             'wild_animals' => 'Wild Animals',
             'mythical' => 'Mythical Creatures',
             'fantastic' => 'Fantastic Characters',
+            'healthcare' => 'Healthcare Professionals',
+            'tech' => 'Technology Professionals',
+            'education' => 'Education Professionals',
+            'business' => 'Business Professionals',
+            'creative' => 'Creative Professionals',
         ];
     }
 }

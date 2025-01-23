@@ -49,16 +49,18 @@
                                     </span>
                                 </label>
                                 <div class="relative">
-                                    <input
-                                        type="text"
+                                    <select
                                         id="subject"
                                         name="subject"
-                                        class="block w-full px-4 py-3.5 text-gray-900 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 placeholder-gray-400 bg-white hover:border-gray-400"
-                                        placeholder="E.g., cat, dog, penguin, dragon"
-                                        value="{{ old('subject') }}"
+                                        class="block w-full pl-4 pr-10 py-3.5 text-gray-900 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white hover:border-gray-400"
                                         required
                                         aria-describedby="subject-help"
                                     >
+                                        <option value="">Select a character</option>
+                                        @foreach($subjects as $value => $label)
+                                            <option value="{{ $value }}" {{ old('subject') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                        @endforeach
+                                    </select>
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -145,7 +147,7 @@
                                     @enderror
                                 </div>
 
-                                <!-- Custom Style Textarea -->
+                                <!-- Custom Style Select -->
                                 <div class="md:col-span-2">
                                     <label for="custom_style" class="block text-sm font-medium text-gray-900 mb-2">
                                         Custom Style Elements
@@ -153,20 +155,24 @@
                                         <span class="ml-1 inline-block text-gray-500">✨</span>
                                     </label>
                                     <div class="relative">
-                                        <textarea
+                                        <select
                                             id="custom_style"
                                             name="custom_style"
-                                            rows="3"
-                                            maxlength="500"
-                                            class="block w-full px-4 py-3.5 text-gray-900 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 placeholder-gray-400 bg-white hover:border-gray-400"
-                                            placeholder="E.g., wearing a crown and wizard hat, cyberpunk style, pixel art style"
-                                            aria-describedby="char-counter"
-                                        >{{ old('custom_style') }}</textarea>
-                                        <div id="char-counter" class="absolute bottom-2 right-2 text-xs text-gray-400">
-                                            <span id="char-count">0</span>/500
-                                        </div>
+                                            class="block w-full pl-4 pr-10 py-3.5 text-gray-900 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white hover:border-gray-400"
+                                        >
+                                            <option value="">No additional style</option>
+                                            <option value="with a small red mushroom cap">Mushroom Cap</option>
+                                            <option value="wearing a wizard hat and carrying a magic staff">Wizard Theme</option>
+                                            <option value="wearing gaming headphones and holding a controller">Gamer Theme</option>
+                                            <option value="in cyberpunk style with neon accents">Cyberpunk Theme</option>
+                                            <option value="in pixel art style">Pixel Art Theme</option>
+                                            <option value="wearing a crown and royal cape">Royal Theme</option>
+                                            <option value="with rainbow sparkles and stars">Sparkle Theme</option>
+                                            <option value="in chibi anime style">Anime Theme</option>
+                                            <option value="with superhero cape and mask">Superhero Theme</option>
+                                        </select>
                                     </div>
-                                    <p class="mt-2 text-xs text-gray-500">Add any custom style elements or accessories you'd like your sticker to have.</p>
+                                    <p class="mt-2 text-xs text-gray-500">Choose an optional theme or style for your sticker</p>
                                     @error('custom_style')
                                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -199,16 +205,6 @@
 
                     @push('scripts')
                     <script>
-                        // Character counter
-                        const textarea = document.getElementById('custom_style');
-                        const charCount = document.getElementById('char-count');
-                        
-                        textarea.addEventListener('input', () => {
-                            const currentLength = textarea.value.length;
-                            charCount.textContent = currentLength;
-                            charCount.style.color = currentLength > 450 ? '#ef4444' : '#6b7280';
-                        });
-
                         // Enhanced loading state
                         document.getElementById('sticker-form').addEventListener('submit', function(e) {
                             const button = document.getElementById('submit-button');

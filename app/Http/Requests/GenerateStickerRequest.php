@@ -14,30 +14,28 @@ class GenerateStickerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['required', 'string', 'max:255'],
+            'subject' => ['required', 'string', 'in:cat,dog,penguin,dragon,bear,fox,bunny,owl,panda,shark'],
             'expression' => ['required', 'string', 'in:hype,tilted,gg,sadge,clutch,pog,facepalm,monkas,ez,nope,sleepy,blush,surprise,laugh,determined'],
             'size' => ['sometimes', 'string', 'in:square_hd,square,portrait_4_3,portrait_16_9,landscape_4_3,landscape_16_9'],
             'style' => ['sometimes', 'string', 'in:realistic_image,digital_illustration,vector_illustration'],
-            'colors' => ['nullable', 'array'],
-            'colors.*.r' => ['required_with:colors', 'integer', 'between:0,255'],
-            'colors.*.g' => ['required_with:colors', 'integer', 'between:0,255'],
-            'colors.*.b' => ['required_with:colors', 'integer', 'between:0,255'],
-            'custom_style' => ['nullable', 'string', 'max:500'],
+            'custom_style' => [
+                'nullable',
+                'string',
+                'in:with a small red mushroom cap,wearing a wizard hat and carrying a magic staff,wearing gaming headphones and holding a controller,in cyberpunk style with neon accents,in pixel art style,wearing a crown and royal cape,with rainbow sparkles and stars,in chibi anime style,with superhero cape and mask'
+            ],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'subject.required' => 'Please enter a subject for your sticker',
+            'subject.required' => 'Please select a character for your sticker',
+            'subject.in' => 'Please select a valid character from the list',
             'expression.required' => 'Please select an expression',
             'expression.in' => 'Invalid expression selected',
             'size.in' => 'Invalid size selected',
             'style.in' => 'Invalid style selected',
-            'colors.*.r.between' => 'Red value must be between 0 and 255',
-            'colors.*.g.between' => 'Green value must be between 0 and 255',
-            'colors.*.b.between' => 'Blue value must be between 0 and 255',
-            'custom_style.max' => 'Custom style description must be less than 500 characters',
+            'custom_style.in' => 'Please select a valid style theme',
         ];
     }
 }

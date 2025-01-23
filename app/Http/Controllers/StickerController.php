@@ -25,6 +25,19 @@ class StickerController extends Controller
 
     public function create(): View
     {
+        $subjects = [
+            'cat' => 'Cat',
+            'dog' => 'Dog',
+            'penguin' => 'Penguin',
+            'dragon' => 'Dragon',
+            'bear' => 'Bear',
+            'fox' => 'Fox',
+            'bunny' => 'Bunny',
+            'owl' => 'Owl',
+            'panda' => 'Panda',
+            'shark' => 'Shark',
+        ];
+
         $expressions = [
             'hype' => 'Hype (Excited)',
             'tilted' => 'Tilted (Frustrated)',
@@ -43,7 +56,7 @@ class StickerController extends Controller
             'determined' => 'Determined (Resolute)',
         ];
 
-        return view('stickers.create', compact('expressions'));
+        return view('stickers.create', compact('expressions', 'subjects'));
     }
 
     public function store(GenerateStickerRequest $request): RedirectResponse

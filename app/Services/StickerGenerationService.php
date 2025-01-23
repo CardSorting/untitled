@@ -47,7 +47,7 @@ class StickerGenerationService implements StickerGenerationServiceInterface
                     $data['subject']
                 ),
                 'image_path' => Storage::disk('backblaze')->url($filename),
-                'size' => $data['size'] ?? '1024x1024',
+                'size' => $data['size'] ?? '1:1',
                 'style' => $data['style'] ?? 'default',
                 'custom_style' => $data['custom_style'] ?? null,
             ]);

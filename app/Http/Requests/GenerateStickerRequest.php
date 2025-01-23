@@ -16,7 +16,7 @@ class GenerateStickerRequest extends FormRequest
         return [
             'subject' => ['required', 'string', 'max:255'],
             'expression' => ['required', 'string', 'in:hype,tilted,gg,sadge,clutch,pog,facepalm,monkas,ez,nope,sleepy,blush,surprise,laugh,determined'],
-            'size' => ['sometimes', 'string', 'in:1024x1024,512x512'],
+            'size' => ['sometimes', 'string', 'in:1:1'],
             'style' => ['sometimes', 'string', 'in:default,cartoon,realistic'],
             'custom_style' => ['nullable', 'string', 'max:500'],
         ];

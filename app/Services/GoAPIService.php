@@ -12,7 +12,7 @@ class GoAPIService
 
     public function __construct()
     {
-        $this->apiKey = config('services.goapi.key');
+        $this->apiKey = config('services.goapi.api_key');
         if (empty($this->apiKey)) {
             throw new \RuntimeException('GOAPI_KEY is not configured');
         }

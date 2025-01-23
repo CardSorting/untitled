@@ -110,8 +110,7 @@
                                             name="size"
                                             class="block w-full pl-4 pr-10 py-3.5 text-gray-900 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white hover:border-gray-400"
                                         >
-                                            <option value="1024x1024">Large (1024x1024)</option>
-                                            <option value="512x512">Small (512x512)</option>
+                                            <option value="1:1">Square (1:1)</option>
                                         </select>
                                     </div>
                                     @error('size')

@@ -70,6 +70,7 @@ class StickerController extends Controller
                 'user_id' => auth()->id(),
                 'expression' => $data['expression'],
                 'subject' => $data['subject'],
+                'prompt' => $prompt,
                 'custom_style' => $data['custom_style'] ?? null,
                 'status' => Sticker::STATUS_PROCESSING,
                 'metadata' => [

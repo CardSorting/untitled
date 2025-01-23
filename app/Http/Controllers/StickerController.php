@@ -123,8 +123,9 @@ class StickerController extends Controller
         
         // Get loading state from metadata
         $taskId = $sticker->metadata['task_id'] ?? null;
-        $loadingState = $taskId 
-            ? $this->loadingStateService->getState($taskId)
+        $currentState = $this->loadingStateService->getCurrentState();
+        $loadingState = ($taskId && isset($currentState['task_id']) && $currentState['task_id'] === $taskId)
+            ? $currentState
             : null;
 
         return view('stickers.show', [

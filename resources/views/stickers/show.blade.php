@@ -60,11 +60,14 @@
                                 @foreach($sticker->variations as $variation)
                                 <div class="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                                     <img 
-                                        src="{{ Storage::url($variation) }}"
-                                        alt="Sticker variation"
+                                        src="{{ Storage::url($variation->image_path) }}"
+                                        alt="Sticker variation {{ $variation->variation_index }}"
                                         class="w-full h-auto transform group-hover:scale-105 transition-transform duration-300"
                                     >
                                     <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                                    <div class="absolute bottom-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
+                                        Variation #{{ $variation->variation_index + 1 }}
+                                    </div>
                                 </div>
                                 @endforeach
                             </div>

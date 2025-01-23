@@ -24,6 +24,7 @@ class Sticker extends Model
         'user_id',
         'status',
         'metadata',
+        'version',
     ];
 
     protected $appends = ['image_url'];

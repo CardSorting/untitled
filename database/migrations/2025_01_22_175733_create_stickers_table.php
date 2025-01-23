@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('subject');
             $table->string('expression');
             $table->text('prompt');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->string('image_url')->nullable();
             $table->string('size')->default('1024x1024');
             $table->string('style')->default('default');

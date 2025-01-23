@@ -7,7 +7,7 @@
             x-show="peopleTab === '{{ $category }}'"
             class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3"
         >
-            @foreach($subjects[$category] as $value => $label)
+            @foreach($subjects[$category] as $value => $subject)
                 <label class="relative flex items-start p-4 cursor-pointer bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
                     <input
                         type="radio"

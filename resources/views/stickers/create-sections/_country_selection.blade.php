@@ -13,7 +13,7 @@
                     required
                 >
                 <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600">
-                    {{ $name }}
+                    <span class="fi fi-{{ strtolower($code) }}"></span> {{ $name }}
                 </span>
                 <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>
             </label>

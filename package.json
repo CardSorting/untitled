@@ -17,6 +17,7 @@
         "vite": "^6.0"
     },
     "dependencies": {
-        "@fal-ai/client": "^1.2.2"
+        "@fal-ai/client": "^1.2.2",
+        "flag-icons": "^7.3.2"
     }
 }

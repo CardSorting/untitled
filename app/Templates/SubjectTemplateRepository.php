@@ -123,6 +123,16 @@ class SubjectTemplateRepository
                 'chef' => 'Chef',
                 'fashion-designer' => 'Fashion Designer',
             ],
+            'religious' => [
+                'priest' => ['label' => 'Priest', 'country' => 'it'],
+                'monk' => ['label' => 'Monk', 'country' => 'in'],
+                'imam' => ['label' => 'Imam', 'country' => 'sa'],
+                'rabbi' => ['label' => 'Rabbi', 'country' => 'il'],
+                'pastor' => ['label' => 'Pastor', 'country' => 'us'],
+                'buddhist-monk' => ['label' => 'Buddhist Monk', 'country' => 'cn'],
+                'sikh-priest' => ['label' => 'Sikh Priest', 'country' => 'in'],
+                'shaman' => ['label' => 'Shaman', 'country' => 'ru'],
+            ],
         ];
     }
 
@@ -142,6 +152,7 @@ class SubjectTemplateRepository
             'education' => 'Education Professionals',
             'business' => 'Business Professionals',
             'creative' => 'Creative Professionals',
+            'religious' => 'Religious Figures',
         ];
     }
 }

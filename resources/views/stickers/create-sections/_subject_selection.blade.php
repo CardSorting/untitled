@@ -8,15 +8,8 @@
         </span>
     </label>
     <div class="relative">
-        <div x-data="{ mainTab: 'animals', animalTab: 'pets', peopleTab: 'healthcare', sportsTab: 'team_sports', countries: @json($countries), gender: 'male' }">
+        <div x-data="{ mainTab: 'animals', animalTab: 'pets', peopleTab: 'healthcare', sportsTab: 'team_sports', religiousTab: 'priest', countries: @json($countries), gender: 'male' }">
             <!-- Main Tab Navigation -->
-            <div class="mt-4">
-                <label class="text-sm font-medium text-gray-700">Gender</label>
-                <select x-model="gender" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
             <div class="border-b border-gray-200">
                 <nav class="-mb-px flex space-x-6" aria-label="Main categories">
                     <button
@@ -42,6 +35,14 @@
                         class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
                     >
                         Sports
+                    </button>
+                    <button
+                        type="button"
+                        @click="mainTab = 'religious'"
+                        :class="mainTab === 'religious' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                        class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                    >
+                        Religious
                     </button>
                 </nav>
             </div>
@@ -105,7 +106,7 @@
                                 >
                                 <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600">
                                     {{ $label }}
-                                </span>
+                                </span> 
                                 <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>
                             </label>
                         @endforeach
@@ -181,7 +182,7 @@
                                 >
                                 <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600">
                                     {{ $label }}
-                                </span>
+                                </span> 
                                 <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>
                             </label>
                         @endforeach
@@ -248,13 +249,118 @@
                                 >
                                 <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600">
                                     {{ $label }}
-                                </span>
+                                </span> 
                                 <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>
                             </label>
                         @endforeach
                     </div>
                 @endforeach
             </div>
+
+            <!-- Religious Tab Panels -->
+            <div x-show="mainTab === 'religious'">
+                <div class="border-b border-gray-200 mt-4 overflow-x-auto">
+                    <nav class="-mb-px flex space-x-6" aria-label="Religious categories">
+                        <button
+                            type="button"
+                            @click="religiousTab = 'priest'"
+                            :class="religiousTab === 'priest' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🕊️</span>
+                            Priest
+                        </button>
+                        <button
+                            type="button"
+                            @click="religiousTab = 'monk'"
+                            :class="religiousTab === 'monk' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🧘</span>
+                            Monk
+                        </button>
+                        <button
+                            type="button"
+                            @click="religiousTab = 'imam'"
+                            :class="religiousTab === 'imam' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🕋</span>
+                            Imam
+                        </button>
+                        <button
+                            type="button"
+                            @click="religiousTab = 'rabbi'"
+                            :class="religiousTab === 'rabbi' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🕍</span>
+                            Rabbi
+                        </button>
+                        <button
+                            type="button"
+                            @click="religiousTab = 'pastor'"
+                            :class="religiousTab === 'pastor' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🛐</span>
+                            Pastor
+                        </button>
+                        <button
+                            type="button"
+                            @click="religiousTab = 'buddhist-monk'"
+                            :class="religiousTab === 'buddhist-monk' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🧘‍♂️</span>
+                            Buddhist Monk
+                        </button>
+                        <button
+                            type="button"
+                            @click="religiousTab = 'sikh-priest'"
+                            :class="religiousTab === 'sikh-priest' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🕉️</span>
+                            Sikh Priest
+                        </button>
+                        <button
+                            type="button"
+                            @click="religiousTab = 'shaman'"
+                            :class="religiousTab === 'shaman' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                            class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                        >
+                            <span class="text-lg">🪬</span>
+                            Shaman
+                        </button>
+                    </nav>
+                </div>
+                @foreach(['priest', 'monk', 'imam', 'rabbi', 'pastor', 'buddhist-monk', 'sikh-priest', 'shaman'] as $category)
+                    <div
+                        x-show="religiousTab === '{{ $category }}'"
+                        class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3"
+                    >
+                        @foreach($subjects[$category] as $value => $label)
+                            <label class="relative flex items-start p-4 cursor-pointer bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
+                                <input
+                                    type="radio"
+                                    name="subject"
+                                    value="{{ $value }}"
+                                    {{ old('subject') == $value ? 'checked' : '' }}
+                                    class="sr-only peer"
+                                    required
+                                >
+                                <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600">
+                                    {{ $label }}
+                                </span> 
+                                <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>
+                            </label>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+             <!-- Religious Category Panel -->
+             @include('stickers.create-sections._religious_category_panel')
         </div>
     </div>
     @error('subject')

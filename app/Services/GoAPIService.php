@@ -87,4 +87,31 @@ class GoAPIService
         
         return "A {$expressionText} {$subject}, {$style}";
     }
+
+    public function generateImage(array $params): array
+    {
+        try {
+            $response = Http::withHeaders([
+                'x-api-key' => $this->apiKey,
+                'Content-Type' => 'application/json',
+            ])->post('https://api.goapi.ai/api/v1/task', [
+                'model' => 'midjourney',
+                'task_type' => 'imagine',
+                'input' => [
+                    'prompt' => $params['prompt'],
+                    'aspect_ratio' => $params['aspect_ratio'],
+                    'process_mode' => $params['process_mode']
+                ]
+            ]);
+
+            if ($response->successful()) {
+                return $response->json('data');
+            }
+
+            throw new StickerGenerationException('API request failed: ' . $response->json('message'));
+        } catch (\Exception $e) {
+            Log::error('GoAPI image generation failed', ['error' => $e->getMessage()]);
+            throw new StickerGenerationException('Failed to generate image: ' . $e->getMessage());
+        }
+    }
 }

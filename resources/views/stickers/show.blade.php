@@ -23,6 +23,23 @@
                             >
                         </div>
                         
+                        <!-- Generated Images Grid -->
+                        <div class="col-span-2">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">All Variations</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                @foreach($sticker->variations as $variation)
+                                <div class="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                    <img 
+                                        src="{{ Storage::url($variation) }}"
+                                        alt="Sticker variation"
+                                        class="w-full h-auto transform group-hover:scale-105 transition-transform duration-300"
+                                    >
+                                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+
                         <div class="space-y-4">
                             <div>
                                 <h3 class="text-lg font-medium text-gray-900">Details</h3>

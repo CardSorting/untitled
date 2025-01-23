@@ -2,37 +2,33 @@
 
 namespace App\Http\Controllers\Stickers;
 
+use App\Http\Requests\GenerateStickerRequest;
 use App\Templates\ReligiousTemplateRepository;
-use Illuminate\View\View;
 
 class ReligiousStickerController extends BaseStickerController
 {
-    protected ReligiousTemplateRepository $religiousTemplates;
+    protected $religiousTemplates;
 
     public function __construct(
         ReligiousTemplateRepository $religiousTemplates
     ) {
+        parent::__construct(
+            app()->make('App\Contracts\StickerGenerationServiceInterface'),
+            app()->make('App\Templates\CountryRepository')
+        );
         $this->religiousTemplates = $religiousTemplates;
-        parent::__construct(app()->make('StickerGenerationServiceInterface'), app()->make('CountryRepository'));
     }
 
-    protected function getTemplateRepository()
+    public function create()
     {
-        return $this->religiousTemplates;
+        return view('stickers.religious.create', array_merge(
+            $this->getViewData(),
+            ['templates' => $this->religiousTemplates->getAll()]
+        ));
     }
 
-    protected function getViewPath(): string
+    public function store(GenerateStickerRequest $request)
     {
-        return 'stickers.religious.create';
-    }
-
-    public function create(): View
-    {
-        $templateData = parent::create()->getData();
-        return view($this->getViewPath(), array_merge($templateData, [
-            'religiousFigures' => $this->religiousTemplates->getReligiousFigures(),
-            'religiousSymbols' => $this->religiousTemplates->getReligiousSymbols(),
-            'religiousCategories' => $this->religiousTemplates->getReligiousCategories(),
-        ]));
+        return $this->storeSticker($request, 'religious');
     }
 }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Religious Sticker') }}
+            {{ __('Create Animal Sticker') }}
         </h2>
     </x-slot>
 
@@ -9,13 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form method="POST" action="{{ route('stickers.religious.store') }}">
+                    <form method="POST" action="{{ route('stickers.animal.store') }}">
                         @csrf
 
                         <div>
-                            <x-input-label for="religious_figure" :value="__('Religious Figure')" />
-                            <x-text-input id="religious_figure" class="block mt-1 w-full" type="text" name="religious_figure" :value="old('religious_figure')" required autofocus />
-                            <x-input-error :messages="$errors->get('religious_figure')" class="mt-2" />
+                            <x-input-label for="animal_type" :value="__('Animal Type')" />
+                            <x-text-input id="animal_type" class="block mt-1 w-full" type="text" name="animal_type" :value="old('animal_type')" required autofocus />
+                            <x-input-error :messages="$errors->get('animal_type')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
@@ -42,7 +42,6 @@
                             </select>
                             <x-input-error :messages="$errors->get('country')" class="mt-2" />
                         </div>
-
 
                         <div class="flex items-center justify-start mt-4">
                             <x-primary-button class="ml-4">

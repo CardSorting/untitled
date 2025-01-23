@@ -31,6 +31,14 @@
                             </x-slot>
 
                             <x-slot name="content">
+                                <x-dropdown-link :href="route('stickers.animal.create')">
+                                    {{ __('Animal Sticker') }}
+                                </x-dropdown-link>
+
+                                <x-dropdown-link :href="route('stickers.people.create')">
+                                    {{ __('People Sticker') }}
+                                </x-dropdown-link>
+
                                 <x-dropdown-link :href="route('stickers.sports.create')">
                                     {{ __('Sports Sticker') }}
                                 </x-dropdown-link>
@@ -101,6 +109,14 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             
+            <x-responsive-nav-link :href="route('stickers.animal.create')" :active="request()->routeIs('stickers.animal.create')">
+                {{ __('Create Animal Sticker') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('stickers.people.create')" :active="request()->routeIs('stickers.people.create')">
+                {{ __('Create People Sticker') }}
+            </x-responsive-nav-link>
+
             <x-responsive-nav-link :href="route('stickers.sports.create')" :active="request()->routeIs('stickers.sports.create')">
                 {{ __('Create Sports Sticker') }}
             </x-responsive-nav-link>

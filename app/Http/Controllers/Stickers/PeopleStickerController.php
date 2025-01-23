@@ -12,7 +12,7 @@ use App\Models\Sticker;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class SportsStickerController extends BaseStickerController
+class PeopleStickerController extends BaseStickerController
 {
     public function __construct(
         StickerGenerationServiceInterface $stickerService,
@@ -26,9 +26,9 @@ class SportsStickerController extends BaseStickerController
     public function create(): View
     {
         $countries = $this->countryRepository->getCountries();
-        return view('stickers.sports.create', [
-            'sportsCategories' => $this->subjectTemplates->getSportsCategories(),
-            'sportsTypes' => $this->subjectTemplates->getSportsTypes(),
+        return view('stickers.people.create', [
+            'peopleCategories' => $this->subjectTemplates->getPeopleCategories(),
+            'peopleTypes' => $this->subjectTemplates->getPeopleTypes(),
             'expressions' => $this->expressionTemplates->getExpressions(),
             'countries' => $countries,
         ]);
@@ -38,7 +38,7 @@ class SportsStickerController extends BaseStickerController
     {
         $validated = $request->validate([
             'subject' => 'required|string|max:255',
-            'sports_type' => 'required|string|max:255',
+            'people_type' => 'required|string|max:255',
             'expression' => 'required|string|max:255',
             'size' => 'required|string|max:255',
             'style' => 'required|string|max:255',

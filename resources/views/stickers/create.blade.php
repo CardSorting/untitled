@@ -110,7 +110,12 @@
                                             name="size"
                                             class="block w-full pl-4 pr-10 py-3.5 text-gray-900 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white hover:border-gray-400"
                                         >
-                                            <option value="1:1">Square (1:1)</option>
+                                            <option value="square_hd">Square HD (1024x1024)</option>
+                                            <option value="square">Square (512x512)</option>
+                                            <option value="portrait_4_3">Portrait 4:3</option>
+                                            <option value="portrait_16_9">Portrait 16:9</option>
+                                            <option value="landscape_4_3">Landscape 4:3</option>
+                                            <option value="landscape_16_9">Landscape 16:9</option>
                                         </select>
                                     </div>
                                     @error('size')
@@ -130,9 +135,9 @@
                                             name="style"
                                             class="block w-full pl-4 pr-10 py-3.5 text-gray-900 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white hover:border-gray-400"
                                         >
-                                            <option value="default">Default</option>
-                                            <option value="cartoon">Cartoon</option>
-                                            <option value="realistic">Realistic</option>
+                                            <option value="realistic_image">Realistic</option>
+                                            <option value="digital_illustration">Digital Art</option>
+                                            <option value="vector_illustration">Vector Art</option>
                                         </select>
                                     </div>
                                     @error('style')

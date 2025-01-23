@@ -17,8 +17,11 @@
                         class="sr-only peer"
                         required
                     >
-                    <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600">
+                    <span class="ml-3 text-sm font-medium text-gray-900 peer-checked:text-blue-600 flex items-center">
                         {{ $label }}
+                        @if(isset($countries[$value]))
+                            <span class="ml-1">{{ $countries[$value] }}</span>
+                        @endif
                     </span>
                     <span class="absolute inset-0 rounded-lg ring-2 ring-transparent peer-checked:ring-blue-500"></span>
                 </label>

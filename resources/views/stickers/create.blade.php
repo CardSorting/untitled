@@ -44,6 +44,9 @@
                             <!-- Subject Input -->
                             @include('stickers.create-sections._subject_input')
 
+                            <!-- Country Selection -->
+                            @include('stickers.create-sections._country_selection')
+
                             <!-- Expression Select -->
                             @include('stickers.create-sections._expression_input')
 

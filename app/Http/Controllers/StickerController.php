@@ -7,6 +7,7 @@ use App\Http\Requests\GenerateStickerRequest;
 use App\Models\Sticker;
 use App\Templates\SubjectTemplateRepository;
 use App\Templates\ExpressionTemplateRepository;
+use App\Templates\CountryRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -15,7 +16,8 @@ class StickerController extends Controller
     public function __construct(
         protected StickerGenerationServiceInterface $stickerService,
         protected SubjectTemplateRepository $subjectTemplates,
-        protected ExpressionTemplateRepository $expressionTemplates
+        protected ExpressionTemplateRepository $expressionTemplates,
+        protected CountryRepository $countryRepository
     ) {}
 
     public function index(): View
@@ -29,10 +31,12 @@ class StickerController extends Controller
 
     public function create(): View
     {
+        $countries = $this->countryRepository->getCountries();
         return view('stickers.create', [
             'subjects' => $this->subjectTemplates->getSubjects(),
             'subjectCategories' => $this->subjectTemplates->getCategories(),
-            'expressions' => $this->expressionTemplates->getExpressions()
+            'expressions' => $this->expressionTemplates->getExpressions(),
+            'countries' => $countries,
         ]);
     }
 
@@ -43,6 +47,7 @@ class StickerController extends Controller
             'expression' => 'required|string|max:255',
             'size' => 'required|string|max:255',
             'style' => 'required|string|max:255',
+            'country' => 'nullable|string|size:2'
         ]);
 
         $sticker = Sticker::create($validated);

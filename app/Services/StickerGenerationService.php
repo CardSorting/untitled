@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\StickerGenerationServiceInterface;
 use App\Exceptions\StickerGenerationException;
 use App\Models\Sticker;
 use App\Models\User;
@@ -92,7 +93,12 @@ class StickerGenerationService implements StickerGenerationServiceInterface
             'facepalm' => 'A headshot sticker of a cartoon {subject} with one paw over its forehead, eyes closed in visible exasperation. The small red mushroom cap sits forward, matching the frustrated vibe, and a subtle sweat drop appears near the paw, emphasizing the frustration. This "facepalm" emote is ideal for reacting to silly mistakes or cringe moments, adding a humorous "why me?" touch.',
             'monkas' => 'A headshot sticker of a cartoon {subject} with wide, anxious eyes, looking to the side with small sweat beads on its forehead. Its small red mushroom cap tilts forward, emphasizing its tension, while faint "shaking lines" around its head capture the suspenseful "MonkaS" feeling. This emote is perfect for expressing anxiety during nerve-wracking gameplay moments.',
             'ez' => 'A headshot sticker of a cartoon {subject} with a smug grin and half-lidded eyes, exuding relaxed confidence. Its small red mushroom cap sits slightly back, adding to the nonchalant look, while a tiny "EZ" bubble floats nearby. This emote captures a cocky, effortless vibe, ideal for showing off an easy win or lighthearted teasing after a smooth victory.',
-            'nope' => 'A headshot sticker of a cartoon {subject} with tightly shut eyes and a straight-lined mouth, turning slightly away in rejection or disapproval. The small red mushroom cap droops subtly, and small "X" icons float around the head, reinforcing the "nope" vibe. This emote is perfect for expressing rejection, cringing, or avoiding awkward moments.'
+            'nope' => 'A headshot sticker of a cartoon {subject} with tightly shut eyes and a straight-lined mouth, turning slightly away in rejection or disapproval. The small red mushroom cap droops subtly, and small "X" icons float around the head, reinforcing the "nope" vibe. This emote is perfect for expressing rejection, cringing, or avoiding awkward moments.',
+            'sleepy' => 'A headshot sticker of a cartoon {subject} with heavy-lidded eyes and a gentle yawn, wearing its small red mushroom cap at a sleepy tilt. Tiny "z" letters float near its head, while the {subject} looks adorably drowsy. This emote is perfect for expressing tiredness or boredom during late-night gaming sessions.',
+            'blush' => 'A headshot sticker of a cartoon {subject} with rosy cheeks and a bashful smile, its small red mushroom cap tilted down shyly. Small heart symbols float around its head as it looks down with endearing embarrassment. This emote is ideal for cute, wholesome moments or expressing appreciation.',
+            'surprise' => 'A headshot sticker of a cartoon {subject} with wide, startled eyes and an open mouth forming a perfect "O" of astonishment. Its small red mushroom cap appears to jump slightly off its head, with exclamation marks and tiny stars of surprise surrounding it. This emote captures pure shock and amazement.',
+            'laugh' => 'A headshot sticker of a cartoon {subject} with eyes squeezed shut in pure joy, mouth wide open in hearty laughter. The small red mushroom cap bounces merrily as tears of joy appear at the corners of its eyes. Musical note symbols and tiny "haha" text bubbles float around, perfect for expressing uncontrollable mirth.',
+            'determined' => 'A headshot sticker of a cartoon {subject} with a fierce, resolute expression and a confident smirk. Its small red mushroom cap sits firmly in place as determination sparkles in its eyes. Small flame symbols around its head represent unwavering focus and dedication, ideal for showing absolute commitment to a goal.'
         );
 
         return str_replace('{subject}', $subject, $templates[$expression] ?? $templates['hype']);

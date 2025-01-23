@@ -8,14 +8,16 @@ return [
     |--------------------------------------------------------------------------
     |
     | This file is for storing the credentials for third party services such
-    | as Mailgun, Postmark, AWS and more. This file provides the de facto
-    | location for this type of information, allowing packages to have
-    | a conventional file to locate the various service credentials.
+    | as Mailgun, Postmark, AWS and more. This file provides a sane
+    | default location for this type of information, allowing packages
+    | to have a conventional place to find your various credentials.
     |
     */
 
-    'openai' => [
-        'api_key' => env('OPENAI_API_KEY'),
+    'mailgun' => [
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
+        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
     'postmark' => [
@@ -28,28 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'resend' => [
-        'key' => env('RESEND_KEY'),
-    ],
-
-    'slack' => [
-        'notifications' => [
-            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
-            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
-        ],
-    ],
-
-    'backblaze' => [
-        'key_id' => env('BACKBLAZE_KEY_ID', '005b2784557c8a4000000002a'),
-        'application_key' => env('BACKBLAZE_APPLICATION_KEY', 'K005RTGNRc31CWZzQGXXzqGrRjRsw1A'),
-        'bucket_id' => env('BACKBLAZE_BUCKET_ID', '2b326768144595079c480a14'),
-        'endpoint' => env('BACKBLAZE_ENDPOINT', 's3.us-east-005.backblazeb2.com'),
-    ],
-
-    'goapi' => [
-        'api_key' => env('GOAPI_KEY'),
-        'base_url' => 'https://api.goapi.ai/api/v1',
-        'timeout' => 60,
+    'fal' => [
+        'key' => env('FAL_KEY'),
+        'api_url' => 'https://fal.run/fal-ai/recraft-v3',
     ],
 
 ];

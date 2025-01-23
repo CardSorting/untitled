@@ -1,3 +1,5 @@
+<?php echo '<?php' ?>
+
 <x-app-layout>
     <x-slot name="header">
         <div class="bg-gradient-to-r from-blue-600 to-purple-600 py-12 relative overflow-hidden">
@@ -51,7 +53,7 @@
                                 <div class="relative">
                                     <div x-data="{ activeTab: 'pets' }">
                                         <!-- Tab Navigation -->
-                                        <div class="border-b border-gray-200">
+                                        <div class="border-b border-gray-200 overflow-x-auto">
                                             <nav class="-mb-px flex space-x-6" aria-label="Subject categories">
                                                 <button
                                                     type="button"
@@ -89,11 +91,56 @@
                                                     <span class="text-lg">🤖</span>
                                                     Fantastic
                                                 </button>
+                                                <button
+                                                    type="button"
+                                                    @click="activeTab = 'healthcare'"
+                                                    :class="activeTab === 'healthcare' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                                                    class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                                                >
+                                                    <span class="text-lg">👨‍⚕️</span>
+                                                    Healthcare
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="activeTab = 'tech'"
+                                                    :class="activeTab === 'tech' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                                                    class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                                                >
+                                                    <span class="text-lg">👩‍💻</span>
+                                                    Tech
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="activeTab = 'education'"
+                                                    :class="activeTab === 'education' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                                                    class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                                                >
+                                                    <span class="text-lg">👩‍🏫</span>
+                                                    Education
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="activeTab = 'business'"
+                                                    :class="activeTab === 'business' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                                                    class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                                                >
+                                                    <span class="text-lg">👨‍💼</span>
+                                                    Business
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    @click="activeTab = 'creative'"
+                                                    :class="activeTab === 'creative' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                                                    class="py-2 px-1 font-medium text-sm border-b-2 flex items-center gap-2 whitespace-nowrap focus:outline-none"
+                                                >
+                                                    <span class="text-lg">👩‍🎨</span>
+                                                    Creative
+                                                </button>
                                             </nav>
                                         </div>
 
                                         <!-- Tab Panels -->
-                                        @foreach($subjects as $category => $options)
+                                        @foreach($subjectCategories as $category => $categoryLabel)
                                             <div
                                                 x-show="activeTab === '{{ $category }}'"
                                                 x-transition:enter="transition ease-out duration-200"
@@ -104,7 +151,7 @@
                                                 x-transition:leave-end="opacity-0 translate-y-1"
                                                 class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3"
                                             >
-                                                @foreach($options as $value => $label)
+                                                @foreach($subjects[$category] as $value => $label)
                                                     <label class="relative flex items-start p-4 cursor-pointer bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
                                                         <input
                                                             type="radio"
@@ -122,11 +169,6 @@
                                                 @endforeach
                                             </div>
                                         @endforeach
-                                    </div>
-                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                        </svg>
                                     </div>
                                 </div>
                                 @error('subject')
@@ -247,7 +289,7 @@
                             <div id="loading-indicator" class="hidden w-full bg-gray-100 rounded-full h-2.5">
                                 <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2.5 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
                             </div>
-                            
+
                             <button
                                 type="submit"
                                 id="submit-button"
@@ -273,7 +315,7 @@
                             const buttonText = document.getElementById('button-text');
                             const spinner = document.getElementById('button-spinner');
                             const loadingBar = document.querySelector('#loading-indicator div');
-                            
+
                             // Initial loading state
                             button.disabled = true;
                             buttonText.textContent = 'Generating...';

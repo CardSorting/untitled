@@ -61,17 +61,9 @@ class StickerController extends Controller
                 $prompt .= ", {$data['custom_style']}";
             }
 
-            // Start loading state
-            $loadingState = $this->loadingStateService->startLoading([
-                'message' => 'Initializing sticker generation...',
-                'progress' => 0,
-                'substages' => [
-                    'Analyzing your creative vision',
-                    'Gathering artistic inspiration',
-                    'Preparing the digital canvas',
-                    'Setting up creative elements'
-                ]
-            ]);
+            // Start loading state with unique task ID
+            $taskId = 'sticker_' . uniqid();
+            $this->loadingStateService->start($taskId);
 
             // Create sticker record first
             $sticker = Sticker::create([
@@ -80,7 +72,10 @@ class StickerController extends Controller
                 'subject' => $data['subject'],
                 'custom_style' => $data['custom_style'] ?? null,
                 'status' => Sticker::STATUS_PROCESSING,
-                'loading_state_id' => $loadingState->id
+                'metadata' => [
+                    'task_id' => $taskId,
+                    'started_at' => now()
+                ]
             ]);
 
             // Initiate async image generation
@@ -91,16 +86,7 @@ class StickerController extends Controller
             ]);
 
             // Update loading state
-            $this->loadingStateService->updateLoading($loadingState->id, [
-                'message' => 'Crafting your sticker...',
-                'progress' => 25,
-                'substages' => [
-                    'Sketching initial composition',
-                    'Developing core elements',
-                    'Adding artistic flourishes',
-                    'Refining visual details'
-                ]
-            ]);
+            $this->loadingStateService->update('processing', 25);
 
             // Update sticker with task ID and status
             $sticker->update([
@@ -134,9 +120,10 @@ class StickerController extends Controller
     {
         $this->authorize('view', $sticker);
         
-        // Get loading state if exists
-        $loadingState = $sticker->loading_state_id 
-            ? $this->loadingStateService->getLoadingState($sticker->loading_state_id)
+        // Get loading state from metadata
+        $taskId = $sticker->metadata['task_id'] ?? null;
+        $loadingState = $taskId 
+            ? $this->loadingStateService->getState($taskId)
             : null;
 
         return view('stickers.show', [

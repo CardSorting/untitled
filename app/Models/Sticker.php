@@ -72,4 +72,10 @@ class Sticker extends Model
         // Otherwise, try to get URL from public disk
         return $this->image_path ? Storage::disk('public')->url($this->image_path) : null;
     }
+
+    public function getStyledPromptAttribute(): string
+    {
+        $style = "digital art, vibrant colors, clean lines, expressive, sticker style, white background";
+        return "{$this->prompt}, {$style}";
+    }
 }

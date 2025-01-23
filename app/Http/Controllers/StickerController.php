@@ -55,8 +55,9 @@ class StickerController extends Controller
         try {
             $data = $request->validated();
             
-            // Build prompt with custom style if provided
-            $prompt = "{$data['expression']} {$data['subject']}";
+            // Build prompt with custom style and default styling
+            $defaultStyle = "digital art, vibrant colors, clean lines, expressive, sticker style, white background";
+            $prompt = "{$data['expression']} {$data['subject']}, {$defaultStyle}";
             if (!empty($data['custom_style'])) {
                 $prompt .= ", {$data['custom_style']}";
             }

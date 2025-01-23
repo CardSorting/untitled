@@ -38,13 +38,16 @@ class StickerController extends Controller
 
     public function store(GenerateStickerRequest $request): RedirectResponse
     {
-        $sticker = $this->stickerService->generateSticker(
-            $request->validated(),
-            auth()->user()
-        );
+        $validated = $request->validate([
+            'subject' => 'required|string|max:255',
+            'expression' => 'required|string|max:255',
+            'size' => 'required|string|max:255',
+            'style' => 'required|string|max:255',
+        ]);
 
-        return redirect()->route('stickers.show', $sticker)
-            ->with('status', 'sticker-created');
+        $sticker = Sticker::create($validated);
+
+        return redirect()->route('stickers.show', $sticker);
     }
 
     public function show(Sticker $sticker): View

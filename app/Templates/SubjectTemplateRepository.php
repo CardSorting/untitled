@@ -4,7 +4,7 @@ namespace App\Templates;
 
 class SubjectTemplateRepository
 {
-    public function getSubjectsWithCountries(): array
+    public function getSubjects(): array
     {
         return [
             'team_sports' => [

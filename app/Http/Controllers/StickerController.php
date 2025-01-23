@@ -55,6 +55,12 @@ class StickerController extends Controller
         try {
             $data = $request->validated();
             
+            // Build prompt with custom style if provided
+            $prompt = "{$data['expression']} {$data['subject']}";
+            if (!empty($data['custom_style'])) {
+                $prompt .= ", {$data['custom_style']}";
+            }
+
             // Start loading state
             $loadingState = $this->loadingStateService->startLoading([
                 'message' => 'Initializing sticker generation...',
@@ -72,13 +78,14 @@ class StickerController extends Controller
                 'user_id' => auth()->id(),
                 'expression' => $data['expression'],
                 'subject' => $data['subject'],
+                'custom_style' => $data['custom_style'] ?? null,
                 'status' => Sticker::STATUS_PROCESSING,
                 'loading_state_id' => $loadingState->id
             ]);
 
             // Initiate async image generation
             $response = $this->goAPIService->generateImage([
-                'prompt' => "{$data['expression']} {$data['subject']}",
+                'prompt' => $prompt,
                 'aspect_ratio' => '1:1',
                 'process_mode' => 'relax'
             ]);
@@ -100,7 +107,8 @@ class StickerController extends Controller
                 'status' => Sticker::STATUS_PROCESSING,
                 'metadata' => [
                     'task_id' => $response['task_id'],
-                    'started_at' => now()
+                    'started_at' => now(),
+                    'prompt' => $prompt
                 ]
             ]);
 
